@@ -48,7 +48,7 @@ export default function App() {
 
   return (
     <div className="container">
-      <h1>Search Medications</h1>
+      <h1>HDS - Search Medications</h1>
       <input
         className="searchInput"
         type="text"
@@ -64,7 +64,7 @@ export default function App() {
       {!loading && !error && hasResults && (
         <ul className="results">
           {results.map((item) => (
-            <li key={item.id}>
+            <li key={item.code}>
               <button className="resultItem" onClick={() => setSelected(item)}>
                 <span className="resultTitle">{item.description.en}</span>
               </button>
