@@ -1,6 +1,6 @@
 # HDS DataSets Search App
 
-Simple React app with a search box that queries HDS datasets.datsafe.dev API and shows results. 
+Simple React app with a search box that queries HDS datasets.datasafe.dev API and shows results. 
 
 Can be tested on: [https://app-datasets.datasafe.dev](https://app-datasets.datasafe.dev)
 

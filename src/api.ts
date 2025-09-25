@@ -29,7 +29,7 @@ export type ErrorResult = {
     error: string
 };
 
-const api = document.URL.includes('datasafe.dev') ? 'http://datasets.datsafe.dev/' : 'http://localhost:7442/';
+const api = document.URL.includes('datasafe.dev') ? 'http://datasets.datasafe.dev/' : 'http://localhost:7442/';
 
 // Simple API wrapper using JSONPlaceholder posts as demo data
 export async function searchMedications(query: string): Promise<Medication[]> {
