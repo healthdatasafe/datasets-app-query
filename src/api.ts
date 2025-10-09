@@ -33,8 +33,8 @@ const api = document.URL.includes('datasafe.dev') ? 'https://datasets.datasafe.d
 
 // Simple API wrapper using JSONPlaceholder posts as demo data
 export async function searchMedications(query: string): Promise<Medication[]> {
-  if (!query.trim()) return []
-  const response = await fetch(api + 'medication?search=' + query)
+  if (!query.trim()) return [];
+  const response = await fetch(api + 'medication?search=' + query);
   if (!response.ok) {
     let message = `Request failed with status ${response.status}`;
     try {
@@ -43,9 +43,9 @@ export async function searchMedications(query: string): Promise<Medication[]> {
     } catch (error) {
       // do nothing
     }
-    throw new Error(message)
+    throw new Error(message);
   }
-  const data = (await response.json()) as SearchResult
+  const data = (await response.json()) as SearchResult;
   return data.medications;
 }
 

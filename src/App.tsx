@@ -1,50 +1,50 @@
-import { useEffect, useState } from 'react'
-import { searchMedications, type Medication } from './api'
+import { useEffect, useState } from 'react';
+import { searchMedications, type Medication } from './api';
 
 function useDebouncedValue<T>(value: T, delayMs: number): T {
-  const [debounced, setDebounced] = useState<T>(value)
+  const [debounced, setDebounced] = useState<T>(value);
   useEffect(() => {
-    const handle = setTimeout(() => setDebounced(value), delayMs)
-    return () => clearTimeout(handle)
-  }, [value, delayMs])
-  return debounced
+    const handle = setTimeout(() => setDebounced(value), delayMs);
+    return () => clearTimeout(handle);
+  }, [value, delayMs]);
+  return debounced;
 }
 
 export default function App() {
-  const [query, setQuery] = useState('')
-  const [results, setResults] = useState<Medication[]>([])
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState<string | null>(null)
-  const [selected, setSelected] = useState<Medication | null>(null)
+  const [query, setQuery] = useState('');
+  const [results, setResults] = useState<Medication[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [selected, setSelected] = useState<Medication | null>(null);
 
-  const debouncedQuery = useDebouncedValue(query, 300)
+  const debouncedQuery = useDebouncedValue(query, 300);
 
   useEffect(() => {
-    let cancelled = false
+    let cancelled = false;
     async function run() {
-      setError(null)
-      setSelected(null)
+      setError(null);
+      setSelected(null);
       if (!debouncedQuery.trim()) {
-        setResults([])
-        return
+        setResults([]);
+        return;
       }
-      setLoading(true)
+      setLoading(true);
       try {
-        const data = await searchMedications(debouncedQuery)
-        if (!cancelled) setResults(data)
+        const data = await searchMedications(debouncedQuery);
+        if (!cancelled) setResults(data);
       } catch (err) {
-        if (!cancelled) setError(err instanceof Error ? err.message : 'Unknown error')
+        if (!cancelled) setError(err instanceof Error ? err.message : 'Unknown error');
       } finally {
-        if (!cancelled) setLoading(false)
+        if (!cancelled) setLoading(false);
       }
     }
-    run()
+    run();
     return () => {
-      cancelled = true
-    }
-  }, [debouncedQuery])
+      cancelled = true;
+    };
+  }, [debouncedQuery]);
 
-  const hasResults = results.length > 0
+  const hasResults = results.length > 0;
 
   return (
     <div className="container">
@@ -94,7 +94,7 @@ export default function App() {
         </div></>
       )}
     </div>
-  )
+  );
 }
 
 
