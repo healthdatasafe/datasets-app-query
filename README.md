@@ -27,3 +27,8 @@ npm build
 
 
 
+
+
+## License
+
+[BSD-3-Clause](LICENSE)
