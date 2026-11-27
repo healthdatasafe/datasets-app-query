@@ -29,9 +29,13 @@ export type ErrorResult = {
     error: string
 };
 
-const api = document.URL.includes('datasafe.dev') ? 'https://datasets.datasafe.dev/' : 'https://datasets.backloop.dev:7442/';
+// VITE_DATASETS_API overrides the base (a workspace with a port offset reaches the local service through its gateway,
+// https://datasets.backloop.dev:<gateway port>/); otherwise production on *.datasafe.dev, the local service elsewhere.
+const fallbackApi = document.URL.includes('datasafe.dev') ? 'https://datasets.datasafe.dev/' : 'https://datasets.backloop.dev:7442/';
+const envApi = import.meta.env.VITE_DATASETS_API;
+const api = envApi ? (envApi.endsWith('/') ? envApi : envApi + '/') : fallbackApi;
 
-// Simple API wrapper using JSONPlaceholder posts as demo data
+// Searches the datasets service's medication index
 export async function searchMedications(query: string): Promise<Medication[]> {
   if (!query.trim()) return [];
   const response = await fetch(api + 'medication?search=' + encodeURIComponent(query));
