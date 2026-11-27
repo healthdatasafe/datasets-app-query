@@ -93,6 +93,11 @@ export default function App() {
             <button className="closeBtn" onClick={() => setSelected(null)}>Close</button>
         </div></>
       )}
+
+      {/* the licences of the open-source code the app is built with (plan 132 P3), written by vite.config.ts */}
+      <footer className="notices">
+        <a href="./THIRD-PARTY-NOTICES.txt" target="_blank" rel="noopener noreferrer">Open-source software in this app</a>
+      </footer>
     </div>
   );
 }
