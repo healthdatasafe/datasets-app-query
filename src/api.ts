@@ -40,7 +40,7 @@ export async function searchMedications(query: string): Promise<Medication[]> {
     try {
       const errorData = await response.json() as ErrorResult;
       message = errorData.error;
-    } catch (error) {
+    } catch {
       // do nothing
     }
     throw new Error(message);
