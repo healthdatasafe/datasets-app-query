@@ -81,6 +81,7 @@ export default function App() {
         <><div className="detail">
             <h2>{selected.label.en}</h2>
             <table>
+              <tbody>
                 <tr>
                     <td className="detail-label">Description</td>
                     <td>{selected.description.en}</td>
@@ -89,6 +90,7 @@ export default function App() {
                     <td>System / Code</td>
                     <td>{selected.system} / {selected.code}</td>
                 </tr>
+              </tbody>
             </table>
             <button className="closeBtn" onClick={() => setSelected(null)}>Close</button>
         </div></>
