@@ -2,7 +2,7 @@
 # Deploy datasets-app-query to gh-pages (https://app-datasets.datasafe.dev/).
 set -euo pipefail
 
-scriptsFolder=$(cd $(dirname "$0"); pwd)
+scriptsFolder=$(cd "$(dirname "$0")"; pwd)
 cd "$scriptsFolder/.."
 
 MAIN_BRANCH="main"
