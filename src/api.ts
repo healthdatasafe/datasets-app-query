@@ -29,12 +29,12 @@ export type ErrorResult = {
     error: string
 };
 
-const api = document.URL.includes('datasafe.dev') ? 'https://datasets.datasafe.dev/' : 'http://localhost:7442/';
+const api = document.URL.includes('datasafe.dev') ? 'https://datasets.datasafe.dev/' : 'https://datasets.backloop.dev:7442/';
 
 // Simple API wrapper using JSONPlaceholder posts as demo data
 export async function searchMedications(query: string): Promise<Medication[]> {
   if (!query.trim()) return [];
-  const response = await fetch(api + 'medication?search=' + query);
+  const response = await fetch(api + 'medication?search=' + encodeURIComponent(query));
   if (!response.ok) {
     let message = `Request failed with status ${response.status}`;
     try {
