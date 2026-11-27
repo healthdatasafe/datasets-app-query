@@ -1,0 +1,37 @@
+name: Datasets App Query CI
+# Every dependency resolves without credentials (backloop.dev packages install from public GitHub repos). The vite
+# backloop plugin applies to the dev server only, so lint and build never reach backloop.dev.
+
+on:
+  pull_request:
+    branches:
+      - '*'
+  push:
+    branches:
+      - 'main'
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+
+    strategy:
+      matrix:
+        node-version: [24.x]
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v7
+
+    - name: Install Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v7
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Lint
+      run: npm run lint
+
+    - name: Build (tsc -b + vite build)
+      run: npm run build

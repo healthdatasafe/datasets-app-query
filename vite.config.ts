@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { defineConfig, type PluginOption } from 'vite';
 import react from '@vitejs/plugin-react';
+import backloop from 'vite-plugin-backloop.dev';
 
 // The build redistributes third-party code (React and others, MIT), whose licences ask for their notice in the
 // distribution: every package bundled, with its licence and notice files, goes to `THIRD-PARTY-NOTICES.txt` beside
@@ -45,9 +46,15 @@ function thirdPartyNotices(appName: string): PluginOption {
   };
 }
 
-export default defineConfig({
-  plugins: [react(), thirdPartyNotices('the HDS datasets search app')],
+export default defineConfig(({ mode }) => ({
+  plugins: [
+    react(),
+    thirdPartyNotices('the HDS datasets search app'),
+    // HTTPS on https://app-datasets.backloop.dev:5173/ for the dev server only (the plugin applies to `serve` and loads
+    // its certificate lazily, so builds and CI never reach backloop.dev). `npm run dev:raw` bypasses it.
+    ...(mode === 'raw' ? [] : [backloop('app-datasets')])
+  ],
   build: {
     outDir: 'dist'
   }
-});
+}));
